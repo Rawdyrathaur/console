@@ -18,16 +18,17 @@ function toNavItem(item: SidebarItem): SidebarNavItem {
 }
 
 const CARD_DASHBOARD_PATHS = [
-  '/',
-  '/workloads',
-  '/security',
-  '/gitops',
-  '/storage',
-  '/compute',
-  '/network',
-  '/events',
-  '/clusters',
+  ROUTES.HOME,
+  ROUTES.WORKLOADS,
+  ROUTES.SECURITY,
+  ROUTES.GITOPS,
+  ROUTES.STORAGE,
+  ROUTES.COMPUTE,
+  ROUTES.NETWORK,
+  ROUTES.EVENTS,
+  ROUTES.CLUSTERS,
 ]
+
 export function Sidebar() {
   const { config } = useSidebarConfig()
   const dashboardContext = useDashboardContextOptional()
@@ -73,17 +74,16 @@ if (CARD_DASHBOARD_PATHS.includes(currentPath) || isCustomDashboard) {
         snoozedCards: true,
       }}
      onAddMore={() => {
-  const currentPath = location.pathname
-  const isOnDashboard =
-    CARD_DASHBOARD_PATHS.includes(currentPath) ||
-    currentPath.startsWith('/custom-dashboard/')
-
-  if (isOnDashboard) {
-    dashboardContext?.openAddCardModal('dashboards')
-  } else {
-    navigate(`${ROUTES.HOME}?customizeSidebar=true`)
-  }
-}}
+        const currentPath = location.pathname
+        const isOnDashboard =
+          CARD_DASHBOARD_PATHS.includes(currentPath) ||
+          currentPath.startsWith('/custom-dashboard/')
+        if (isOnDashboard) {
+          dashboardContext?.openAddCardModal('dashboards')
+        } else {
+          navigate(`${ROUTES.HOME}?customizeSidebar=true`)
+        }
+      }}
       onAddCard={handleAddCardClick}
     />
   )
